@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     
     <!-- Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,200,0,0" />
@@ -24,7 +24,6 @@
             --accent-indigo: #6366f1;
             --accent-emerald: #10b981;
             --accent-orange: #ea580c;
-            --accent-gold: #fbbf24;
             --bg-page: #f8fafc;
             --surface: #ffffff;
             --border: #e2e8f0;
@@ -48,11 +47,6 @@
             align-items: center;
             font-size: 14px;
             font-weight: 300;
-        }
-
-        .dot-pattern {
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 30px 30px;
         }
 
         /* Toolbar */
@@ -87,14 +81,15 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        
         .btn-action:hover { background: var(--accent-indigo); transform: translateY(-2px); }
 
-        /* Slide */
+        /* Contenedor Slide A4 */
         .slide {
             width: 210mm;
             height: 297mm;
             margin-bottom: 50px;
-            padding: 35px 55px;
+            padding: 0;
             background-color: var(--bg-page);
             box-shadow: 0 30px 60px -15px rgba(0,0,0,0.15);
             border-radius: 16px;
@@ -104,73 +99,128 @@
             overflow: hidden; 
         }
 
+        /* Marca de Agua */
         .watermark {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 9998; opacity: 0.08;
-            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='50%25' y='50%25' font-size='15' font-family='Montserrat, sans-serif' font-weight='600' fill='%230f172a' text-anchor='middle' transform='rotate(-45 100 100)'%3EBYD CONNECT%3C/text%3E%3C/svg%3E");
-            background-repeat: repeat;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 8em;
+            color: rgba(15, 23, 42, 0.035);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            text-transform: uppercase;
+            letter-spacing: 12px;
         }
 
+        .slide-content {
+            padding: 25px 55px 35px 55px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Banner Superior */
+        .top-banner {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent-indigo) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 55px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .top-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 10px);
+        }
+
+        .banner-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.7em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+        .dot-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        /* Headers */
         .page-header {
-            display: flex; align-items: center; justify-content: space-between;
-            border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+            flex-shrink: 0;
         }
 
         .page-header h2 {
-            margin: 0; font-family: 'Montserrat'; font-size: 1.25em; color: var(--primary);
-            display: flex; align-items: center; gap: 12px; text-transform: uppercase; letter-spacing: 2px;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3em;
+            font-weight: 300;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .page-brand { font-family: 'Montserrat'; font-weight: 600; font-size: 0.75em; color: var(--text-muted); letter-spacing: 4px; }
+        .page-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.75em;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+        }
 
+        /* Layout Grids */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .flex-col { display: flex; flex-direction: column; gap: 10px; }
 
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 15px 20px; position: relative; }
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 20px;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
         .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-        .card-title { font-family: 'Montserrat'; font-weight: 600; font-size: 0.8em; color: var(--primary); margin: 0; text-transform: uppercase; }
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8em;
+            color: var(--primary);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .card-body { font-size: 0.85em; line-height: 1.45; color: var(--secondary); }
 
-        .step-num {
-            width: 24px; height: 24px; background: var(--primary); color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: 600; font-size: 0.7em; flex-shrink: 0;
-        }
-
-        .btn-link {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            background: #f1f5f9; color: var(--primary); text-decoration: none;
-            padding: 8px 12px; border-radius: 8px; font-family: 'Montserrat';
-            font-weight: 500; font-size: 0.7em; transition: 0.2s; border: 1px solid var(--border);
-            text-transform: uppercase; width: 100%; cursor: pointer;
-        }
-        .btn-lila { background: var(--accent-indigo); color: white; border: none; }
-
-        .code-display {
-            background: var(--primary); color: var(--accent-indigo); font-family: 'Montserrat';
-            font-size: 1.5em; padding: 12px; border-radius: 12px; text-align: center;
-            letter-spacing: 12px; margin: 10px 0; border: 1px solid #334155;
-        }
-
-        .slide-footer {
-            margin-top: auto; display: flex; justify-content: space-between;
-            padding-top: 15px; border-top: 1px solid var(--border);
-            color: var(--text-muted); font-family: 'Montserrat'; font-size: 0.65em;
-            text-transform: uppercase; letter-spacing: 2px;
-        }
-
-        .ui-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
-        .switch { width: 38px; height: 20px; background: #ef4444; border-radius: 20px; position: relative; }
-        .switch::after { content: ''; position: absolute; right: 4px; top: 3px; width: 14px; height: 14px; background: white; border-radius: 50%; }
-
-        .list-item { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0; border-bottom: 1px dashed var(--border); }
-        .list-item span:first-child { font-weight: 500; color: var(--primary); }
-        .list-item span:last-child { font-weight: 600; color: var(--accent-indigo); }
-
-        .glossary-term { margin-bottom: 15px; }
-        .glossary-term strong { display: block; color: var(--accent-indigo); font-family: 'Montserrat'; font-size: 0.85em; text-transform: uppercase; }
-
-        .support-link { text-decoration: none; display: block; margin: 4px 0; width: 100%; }
+        .support-link { text-decoration: none; display: block; margin: 4px 0; }
         .support-box {
             background: var(--pastel-blue);
             border: 1px solid #bae6fd;
@@ -194,546 +244,346 @@
             letter-spacing: 0.8px;
         }
 
-        #vip-modal, #ban-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(12px);
-            z-index: 99999; display: none; align-items: center; justify-content: center; padding: 20px;
+        .step-num {
+            width: 24px; height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; font-size: 0.7em;
+            flex-shrink: 0;
         }
 
-        .modal-content {
-            background: var(--surface); max-width: 480px; width: 100%; border-radius: 30px;
-            padding: 40px; text-align: center; box-shadow: 0 30px 60px -12px rgba(0,0,0,0.6);
-            border: 2px solid var(--accent-gold); position: relative;
+        .btn-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: #f1f5f9;
+            color: var(--primary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.7em;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+            text-transform: uppercase;
+            width: 100%;
         }
 
-        .modal-icon { font-size: 60px; color: var(--accent-gold); margin-bottom: 15px; cursor: pointer; position: relative; z-index: 10; }
-        .modal-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.5em; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; }
+        .btn-lila { background: var(--accent-indigo); color: white; border: none; }
+        .btn-lila:hover { background: #4338ca; transform: translateY(-2px); }
 
-        #admin-badge {
-            position: fixed; bottom: 20px; right: 20px; background: var(--accent-gold);
-            color: var(--primary); padding: 5px 12px; border-radius: 5px; font-weight: 700;
-            font-size: 0.7em; z-index: 9999; display: none; text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        .code-display {
+            background: var(--primary);
+            color: var(--accent-indigo);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            font-size: 1.5em;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            letter-spacing: 12px;
+            margin: 10px 0;
+            border: 1px solid #334155;
         }
 
-        #version-trigger { cursor: pointer; padding: 5px; position: relative; z-index: 10000; }
-        #ban-icon-trigger { cursor: pointer; }
+        .slide-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 0.65em;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
 
-        .manual-input-box {
-            display: none; margin-top: 15px; background: #f1f5f9; padding: 15px; border-radius: 12px; border: 1px solid var(--border);
-        }
-        .manual-input-box input {
-            width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1;
-            margin-bottom: 10px; text-align: center; font-family: 'Montserrat'; font-weight: 600;
-        }
+        .ui-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+        .switch { width: 38px; height: 20px; background: #ef4444; border-radius: 20px; position: relative; }
+        .switch::after { content: ''; position: absolute; right: 4px; top: 3px; width: 14px; height: 14px; background: white; border-radius: 50%; }
+
+        .list-item { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-bottom: 1px dashed var(--border); }
+        .list-item span:first-child { font-weight: 500; color: var(--primary); }
+        .list-item span:last-child { font-weight: 600; color: var(--accent-indigo); }
+
+        .glossary-term { margin-bottom: 18px; }
+        .glossary-term strong { display: block; color: var(--accent-indigo); font-family: 'Montserrat'; font-size: 0.9em; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px; }
+        .glossary-term p { margin: 0; font-size: 0.82em; line-height: 1.5; color: var(--secondary); }
 
         @media print {
             body { padding: 0; background: white; }
-            .controls, #vip-modal, #ban-screen, #admin-badge { display: none !important; }
+            .controls { display: none !important; }
             .slide { margin: 0; box-shadow: none; border: none; border-radius: 0; page-break-after: always; height: 297mm; overflow: hidden; }
         }
     </style>
 </head>
 <body class="dot-pattern">
 
-    <div id="admin-badge">Perfil Administrador</div>
-
-    <!-- PANTALLA ROJA DE BLOQUEO CON SISTEMA DE RESCATE -->
-    <div id="ban-screen">
-        <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
-            <span class="material-symbols-rounded" id="ban-icon-trigger" style="font-size: 100px; margin-bottom: 20px; color: white; cursor: pointer;">lock</span>
-            <h1 style="font-family: 'Montserrat'; font-weight: 700; color: white;">ACCESO REVOCADO</h1>
-            <p style="max-width: 500px; font-size: 1.2em; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 30px;">
-                Se ha detectado que esta copia de la guía pertenece a otro dispositivo.<br><br>
-                El acceso ha sido bloqueado para proteger la propiedad intelectual.
-            </p>
-            
-            <div id="ban-rescue-box" style="display: none; background: white; padding: 25px; border-radius: 20px; margin-bottom: 25px;">
-                <p style="color: var(--primary); font-weight: 700; margin-bottom: 12px; font-size: 0.9em; text-transform: uppercase;">Modo Rescate Administrador</p>
-                <p style="font-size: 0.7em; color: var(--text-muted); margin-bottom: 10px;">ID ACTUAL: <span id="ban-id-display" style="font-weight: 700; color: var(--accent-indigo);">...</span></p>
-                <input type="text" id="ban-rescue-input" placeholder="INGRESA CLAVE MAESTRA" style="width:100%; padding:14px; border-radius:10px; border:1px solid #ddd; text-align:center; margin-bottom:12px; font-family:'Montserrat'; font-weight:600;">
-                <button class="btn-action" style="width:100%; justify-content:center;" onclick="processBanRescue()">RESTAURAR ACCESO</button>
-            </div>
-
-            <button class="btn-action" style="background: white; color: #7f1d1d; width: 220px; margin: 0 auto; justify-content: center;" onclick="location.reload()">REINTENTAR</button>
-        </div>
-    </div>
-
-    <!-- MODAL VIP -->
-    <div id="vip-modal">
-        <div class="modal-content">
-            <span class="material-symbols-rounded modal-icon" id="vip-icon-trigger">workspace_premium</span>
-            <h3 class="modal-title">Contenido VIP</h3>
-            <p class="modal-text">Activa tu licencia para desbloquear las descargas directas de los recursos premium.</p>
-            <div class="price-badge-container">
-                <div class="price-option">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span>Guía Full + Unlocked</span>
-                        <strong style="color:var(--accent-orange)">$5 USD</strong>
-                    </div>
-                </div>
-                <div class="price-option pro">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span>Guía + Soporte Mensual</span>
-                        <strong style="color:var(--accent-blue)">$10 USD</strong>
-                    </div>
-                </div>
-            </div>
-            
-            <a id="telegram-activation" href="#" target="_blank" class="modal-btn-main">
-                <span class="material-symbols-rounded">rocket_launch</span> SOLICITAR ACTIVACIÓN
-            </a>
-            <button class="btn-link" style="margin-top:15px; border: 1px solid var(--border);" onclick="toggleManualEntry()">YA TENGO MI CLAVE</button>
-            
-            <div id="manual-entry-box" class="manual-input-box">
-                <input type="text" id="manual-key-input" placeholder="INGRESA TU CLAVE">
-                <button class="btn-action" style="width:100%; justify-content:center;" onclick="processManualKey()">ACTIVAR LICENCIA</button>
-            </div>
-
-            <p style="font-size:0.75em; margin-top:20px; color:var(--text-muted); text-transform: uppercase;">
-                Tu ID: <span id="id-preview-modal" style="color:var(--accent-indigo); font-weight:700">...</span>
-            </p>
-        </div>
-    </div>
-
     <div class="controls">
-        <button class="btn-action" onclick="downloadAll()">EXPORTAR IMÁGENES</button>
-        <button class="btn-action" onclick="window.print()">GENERAR PDF</button>
+        <button class="btn-action" onclick="downloadAll()">
+            <span class="material-symbols-rounded">download</span> EXPORTAR IMÁGENES
+        </button>
+        <button class="btn-action" onclick="window.print()">
+            <span class="material-symbols-rounded">picture_as_pdf</span> GENERAR PDF
+        </button>
     </div>
 
     <!-- PÁGINA 1: PORTADA -->
     <div class="slide" id="page-1">
-        <div class="watermark"></div>
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-            <div style="opacity: 0.6; margin-bottom: 40px;">
-                <span class="material-symbols-rounded" style="font-size: 70px; color: var(--primary);">electric_car</span>
+        <div class="watermark">BYD CONNECT</div>
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #ffffff 0%, #f1f5f9 100%); position: relative; z-index: 1;">
+            <div style="opacity: 0.8; margin-bottom: 50px;">
+                <span class="material-symbols-rounded" style="font-size: 80px; color: var(--primary);">electric_car</span>
             </div>
             <h1 style="font-family: 'Montserrat'; font-weight: 200; font-size: 4.8em; letter-spacing: 15px; color: var(--primary); margin: 0;">BYD</h1>
             <h1 style="font-family: 'Montserrat'; font-weight: 500; font-size: 4.8em; letter-spacing: 20px; color: var(--primary); margin: 0;">CONNECT</h1>
-            <div style="width: 80px; height: 3px; background: var(--accent-indigo); margin: 40px 0;"></div>
+            <div style="width: 100px; height: 4px; background: var(--accent-indigo); margin: 45px 0;"></div>
             <p style="font-family: 'Montserrat'; font-weight: 400; font-size: 1.4em; color: var(--accent-blue); letter-spacing: 10px; text-transform: uppercase;">Guía de Instalación Premium</p>
             <p style="font-family: 'Montserrat'; font-size: 0.9em; letter-spacing: 5px; color: var(--text-muted); margin-top: 15px;">URUGUAY EDITION • 2026</p>
         </div>
-        <div class="slide-footer"><span>Official Community Asset</span><span id="version-trigger">v2.5.0</span></div>
+        <div class="slide-footer" style="padding: 15px 55px;"><span>Official Community Asset</span><span>v2.5.0</span></div>
     </div>
 
     <!-- PÁGINA 2: ÍNDICE -->
     <div class="slide" id="page-2">
-        <div class="watermark"></div>
-        <div class="page-header">
-            <h2><span class="material-symbols-rounded">list_alt</span> Índice de Contenido</h2>
-            <div class="page-brand">BYD CONNECT</div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">BYD CONNECT • GUÍA PREMIUM</span>
+            <span class="banner-text" style="opacity: 0.7;">TABLA DE CONTENIDOS</span>
         </div>
-        <div class="flex-col" style="gap: 2px; flex: 1; justify-content: center; padding: 0 40px;">
-            <div class="list-item"><span>01. Introducción y Portada de Presentación</span><span>01</span></div>
-            <div class="list-item"><span>02. Índice de Contenido y Estructura</span><span>02</span></div>
-            <div class="list-item"><span>03. Aclaración Técnica y Paso Previo Bluetooth</span><span>03</span></div>
-            <div class="list-item"><span>04. Fase 1: Apertura (Permisos ADB)</span><span>04</span></div>
-            <div class="list-item"><span>05. Fase 2: El Puente (Conexión Inalámbrica)</span><span>05</span></div>
-            <div class="list-item"><span>06. Fase 3: unLocker (Liberación de Sistema)</span><span>06</span></div>
-            <div class="list-item"><span>07. Instalación vía USB y Recursos VIP Full</span><span>07</span></div>
-            <div class="list-item"><span>08. Glosario de Términos y Definiciones</span><span>08</span></div>
+        <div class="slide-content">
+            <div class="page-header">
+                <h2><span class="material-symbols-rounded">list_alt</span> Índice</h2>
+                <div class="page-brand">BYD CONNECT</div>
+            </div>
+            <div class="flex-col" style="gap: 5px; flex: 1; justify-content: center;">
+                <div class="list-item"><span>01. Introducción y Portada</span><span>01</span></div>
+                <div class="list-item"><span>02. Índice de Contenido</span><span>02</span></div>
+                <div class="list-item"><span>03. Aclaración Técnica y Paso Previo</span><span>03</span></div>
+                <div class="list-item"><span>04. Fase 1: Apertura (Permisos ADB)</span><span>04</span></div>
+                <div class="list-item"><span>05. Fase 2: El Puente (Conexión Inalámbrica)</span><span>05</span></div>
+                <div class="list-item"><span>06. Fase 3: Unlocked (Liberación de Sistema)</span><span>06</span></div>
+                <div class="list-item"><span>07. Instalación vía USB y Recursos</span><span>07</span></div>
+                <div class="list-item"><span>08. Glosario de Términos Avanzado</span><span>08</span></div>
+            </div>
+            <div class="slide-footer"><span>Contenido General</span><span>PÁGINA 02</span></div>
         </div>
-        <div class="slide-footer"><span>Estructura de la Guía</span><span>PÁGINA 02</span></div>
     </div>
 
     <!-- PÁGINA 3: ACLARACIÓN TÉCNICA -->
     <div class="slide" id="page-3">
-        <div class="watermark"></div>
-        <div class="page-header">
-            <h2><span class="material-symbols-rounded">info</span> Aclaración Crítica</h2>
-            <div class="page-brand">BYD CONNECT</div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">BYD CONNECT • SEGURIDAD</span>
+            <span class="banner-text" style="opacity: 0.7;">PROTOCOLO TÉCNICO</span>
         </div>
-        <div class="flex-col" style="gap: 15px;">
-            <div class="card" style="border-left: 5px solid var(--accent-indigo); background: #f8fafc;">
-                <div class="card-header">
-                    <span class="material-symbols-rounded" style="color: var(--accent-indigo);">priority_high</span>
-                    <h4 class="card-title">Secuencia de Instalación Obligatoria</h4>
-                </div>
-                <p class="card-body">
-                    El sistema multimedia de BYD está protegido contra instalaciones externas por defecto. Para romper este bloqueo, <strong>debe seguir este orden estricto:</strong>
-                </p>
-                <div class="flex-col" style="margin-top: 10px; gap: 10px;">
-                    <div style="display: flex; gap: 12px; align-items: flex-start;">
-                        <div class="step-num">1</div>
-                        <div class="card-body"><strong>MÉTODO WI-FI:</strong> Se utiliza inicialmente para instalar la "llave" (unLocker) de forma inalámbrica a través de ADB.</div>
+        <div class="slide-content">
+            <div class="page-header">
+                <h2><span class="material-symbols-rounded">info</span> Aclaración</h2>
+                <div class="page-brand">BYD CONNECT</div>
+            </div>
+            <div class="flex-col" style="gap: 20px;">
+                <div class="card" style="border-left: 5px solid var(--accent-indigo); background: #f8fafc;">
+                    <div class="card-header">
+                        <span class="material-symbols-rounded" style="color: var(--accent-indigo);">priority_high</span>
+                        <h4 class="card-title">Secuencia de Instalación</h4>
                     </div>
-                    <div style="display: flex; gap: 12px; align-items: flex-start;">
-                        <div class="step-num">2</div>
-                        <div class="card-body"><strong>LIBERTAD TOTAL:</strong> Una vez activado el unLocker, el sistema permitirá reconocer aplicaciones desde USB.</div>
+                    <p class="card-body" style="font-size: 0.95em;">
+                        El sistema multimedia de BYD está protegido. Para romper este bloqueo, <strong>es obligatorio seguir este orden:</strong>
+                    </p>
+                    <div class="flex-col" style="margin-top: 15px; gap: 12px;">
+                        <div style="display: flex; gap: 12px; align-items: flex-start;"><div class="step-num">1</div><div class="card-body"><strong>MÉTODO WI-FI:</strong> Instalación inicial del liberador.</div></div>
+                        <div style="display: flex; gap: 12px; align-items: flex-start;"><div class="step-num">2</div><div class="card-body"><strong>LIBERTAD TOTAL:</strong> Reconocimiento de aplicaciones permanentemente.</div></div>
+                        <div style="display: flex; gap: 12px; align-items: flex-start;"><div class="step-num">3</div><div class="card-body"><strong>COEXISTENCIA:</strong> Indispensable para quitar el bloqueo de instalaciones desde el USB.</div></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="grid-2">
-                <div class="card">
-                    <div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-blue);">wifi</span><h4 class="card-title">ADB Inalámbrico</h4></div>
-                    <p class="card-body">Fase inicial para inyectar archivos sin cables de forma remota.</p>
+                <div class="grid-2" style="gap: 20px;">
+                    <div class="card"><div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-blue);">wifi</span><h4 class="card-title">Inalámbrica</h4></div><p class="card-body">Protocolo ADB vía Wi-Fi.</p></div>
+                    <div class="card"><div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-emerald);">usb</span><h4 class="card-title">Física (USB)</h4></div><p class="card-body">Uso de pendrives tras desbloqueo.</p></div>
                 </div>
-                <div class="card">
-                    <div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-emerald);">usb</span><h4 class="card-title">USB Físico</h4></div>
-                    <p class="card-body">Reconocimiento de pendrives tras el éxito del puente inalámbrico.</p>
+                <div class="card" style="border: 1px dashed var(--accent-blue); background: #f0f7ff; padding: 20px;">
+                    <div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-blue);">bluetooth_connected</span><h4 class="card-title">Paso Previo</h4></div>
+                    <p class="card-body" style="font-weight: 500;">Conecte su teléfono mediante <strong>Bluetooth</strong> al vehículo antes de iniciar la Fase 1.</p>
                 </div>
             </div>
-
-            <div class="card" style="border: 1px dashed var(--accent-blue); background: #f0f7ff;">
-                <h4 class="card-title" style="color: var(--accent-blue);">Paso Previo Requerido</h4>
-                <p class="card-body" style="font-weight: 500;">
-                    Conecte su teléfono mediante <strong>Bluetooth</strong> al vehículo antes de la Fase 1 para asegurar la comunicación inicial estable.
-                </p>
-            </div>
+            <div class="slide-footer"><span>Consideraciones Iniciales</span><span>PÁGINA 03</span></div>
         </div>
-        <div class="slide-footer"><span>Conceptos Iniciales</span><span>PÁGINA 03</span></div>
     </div>
 
     <!-- PÁGINA 4: FASE 1 -->
     <div class="slide" id="page-4">
-        <div class="watermark"></div>
-        <div class="page-header"><h2><span class="material-symbols-rounded">developer_mode</span> Fase 1: Apertura</h2><div class="page-brand">BYD CONNECT</div></div>
-        <div class="flex-col" style="gap: 8px;">
-            <div class="card">
-                <div class="card-header"><div class="step-num">01</div><h4 class="card-title">Código Maestro</h4></div>
-                <p class="card-body">Marque el siguiente código en el teléfono nativo del vehículo:</p>
-                <div class="code-display">*#91532547#*</div>
-            </div>
-            <a href="https://drive.google.com/file/d/1GtIefDgBEj2Bv7rk7ruQtwjTeK9p7sTM/view?usp=drive_link" target="_blank" class="support-link">
-                <div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 01</h4></div>
-            </a>
-
-            <div class="card"><h4 class="card-title">02. Identificación IMEI / ID</h4><p class="card-body">Obtenga el IMEI en la pantalla técnica y use los últimos 6 dígitos para generar su clave técnica.</p>
-                <a href="https://ahmada3mar.github.io/BYD/" target="_blank" class="btn-lila btn-link" style="margin-top:5px;">IR AL GENERADOR WEB</a>
-            </div>
-            <a href="https://drive.google.com/file/d/1vSGC0IWnfB2uyaHS7TrF2owcxBPABW5b/view?usp=drive_link" target="_blank" class="support-link">
-                <div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 02</h4></div>
-            </a>
-
-            <div class="card">
-                <div class="card-header"><div class="step-num">03</div><h4 class="card-title">Configuración Test Tools</h4></div>
-                <div style="background: #f8fafc; padding: 10px; border-radius: 10px; border: 1px solid var(--border);">
-                    <div class="ui-row"><span>Wireless ADB Debug switch</span><div class="switch"></div></div>
-                    <div class="ui-row" style="border:none;"><span>Debug mode when USB is connected</span><div class="switch"></div></div>
-                </div>
-            </div>
-            <a href="https://drive.google.com/file/d/1jrdOsbeoAJikrJcWZ0yZqzHm_6VUcWuR/view?usp=drive_link" target="_blank" class="support-link">
-                <div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 03</h4></div>
-            </a>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">FASE 1 • APERTURA</span>
+            <span class="banner-text" style="opacity: 0.7;">DEPURACIÓN ADB</span>
         </div>
-        <div class="slide-footer"><span>Preparación</span><span>PÁGINA 04</span></div>
+        <div class="slide-content">
+            <div class="page-header"><h2><span class="material-symbols-rounded">developer_mode</span> Fase 1</h2><div class="page-brand">BYD CONNECT</div></div>
+            <div class="flex-col" style="gap: 12px;">
+                <div class="card"><div class="card-header"><div class="step-num">01</div><h4 class="card-title">Código Maestro</h4></div><p class="card-body">Marque en el teléfono del auto:</p><div class="code-display">*#91532547#*</div></div>
+                <a href="https://drive.google.com/file/d/1GtIefDgBEj2Bv7rk7ruQtwjTeK9p7sTM/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo: Código 01</h4></div></a>
+                <div class="card"><div class="card-header"><div class="step-num">02</div><h4 class="card-title">Identificación</h4></div><p class="card-body">Obtenga el <strong>IMEI / ID</strong> en la pantalla técnica.</p></div>
+                <a href="https://drive.google.com/file/d/1vSGC0IWnfB2uyaHS7TrF2owcxBPABW5b/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo: IMEI 02</h4></div></a>
+                <div class="card"><div class="card-header"><div class="step-num">03</div><h4 class="card-title">Generación</h4></div><p class="card-body">Use los últimos 6 números del IMEI en el generador oficial.</p><a href="https://ahmada3mar.github.io/BYD/" target="_blank" class="btn-link btn-lila" style="margin-top: 8px;">GENERADOR WEB</a></div>
+                <a href="https://drive.google.com/file/d/1OwNeaqhhMDQjJJE_AU2RBBhszjDhMhr2/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo: Clave 03</h4></div></a>
+            </div>
+            <div class="slide-footer"><span>Preparación del Sistema</span><span>PÁGINA 04</span></div>
+        </div>
     </div>
 
     <!-- PÁGINA 5: FASE 2 -->
     <div class="slide" id="page-5">
-        <div class="watermark"></div>
-        <div class="page-header"><h2><span class="material-symbols-rounded">router</span> Fase 2: El Puente</h2><div class="page-brand">BYD CONNECT</div></div>
-        <div class="flex-col" style="gap: 5px; overflow-y: auto;">
-            <div class="card">
-                <div class="card-header"><div class="step-num">01</div><h4 class="card-title">App en el Celular</h4></div>
-                <p class="card-body">Instale <strong>ATV Tools</strong> desde la Play Store en su smartphone Android. Esta herramienta será el puente de comunicación inalámbrica con el vehículo para habilitar las funciones avanzadas.</p>
-                <a href="https://drive.google.com/file/d/1I_ydfFvzYkEIIshA24xOeauRUSecg1Nn/view?usp=drive_link" target="_blank" class="btn-link btn-lila" style="margin-top: 5px;">DESCARGAR ATV TOOLS</a>
-            </div>
-            <a href="https://drive.google.com/file/d/108ruO0RFaVRO0HdOa5TY81PNFBwCtkMh/view?usp=drive_link" target="_blank" class="support-link">
-                <div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 01</h4></div>
-            </a>
-
-            <div class="card"><h4 class="card-title">02. Conexión a Red Wi-Fi</h4><p class="card-body">Debemos conectar tanto el auto como el celular a la <strong>misma red Wi-Fi</strong>. En el vehículo, mantenga presionado el icono de Wi-Fi para acceder a los ajustes.</p></div>
-            <div class="grid-2" style="gap: 8px;">
-                <a href="https://drive.google.com/file/d/1s-7_i8Z76PUFlNK1jfLldwcXAQ2KbZkZ/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 02-A</h4></div></a>
-                <a href="https://drive.google.com/file/d/18c08ed2mGFdTZJ4X-dsOPab392POf0W9/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 02-B</h4></div></a>
-            </div>
-
-            <div class="card"><h4 class="card-title">03. Obtener Dirección IP</h4><p class="card-body">Pulse el ícono <strong>'i'</strong> de información ubicado al lado de la red conectada para visualizar la dirección IP necesaria para la sincronización.</p></div>
-            <a href="https://drive.google.com/file/d/1flQKyiFhEHDN0rzMBFgqo7Tm9mQKVuN5/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 03</h4></div></a>
-
-            <div class="card"><h4 class="card-title">04. Sincronización de WiFi</h4><p class="card-body">En <strong>ATV Tools</strong> pulse los tres puntitos (Más) y seleccione <strong>"+"</strong>. Escriba la dirección IP obtenida anteriormente para vincular el celular.</p></div>
-            <a href="https://drive.google.com/file/d/1KpKml3VeEkicMVQEVcclQ1EkTXXlrNsQ/view?usp=sharing" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 04</h4></div></a>
-
-            <div class="card"><h4 class="card-title">05. Instalación de Aplicaciones</h4><p class="card-body">En el menú <strong>'instalar'</strong> de ATV Tools, seleccione el archivo deseado. Al finalizar, acepte el permiso de depuración en la pantalla del auto.</p></div>
-            <div class="grid-2" style="gap: 8px;">
-                <a href="https://drive.google.com/file/d/1KpKml3VeEkicMVQEVcclQ1EkTXXlrNsQ/view?usp=sharing" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 05-A</h4></div></a>
-                <a href="https://drive.google.com/file/d/1AyukFn5NtYNRLzMg9gDhRJE1Kgb6_Mzd/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de apoyo 05-B</h4></div></a>
-            </div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">FASE 2 • EL PUENTE</span>
+            <span class="banner-text" style="opacity: 0.7;">SINCRONIZACIÓN WIFI</span>
         </div>
-        <div class="slide-footer"><span>Puente Wi-Fi</span><span>PÁGINA 05</span></div>
+        <div class="slide-content">
+            <div class="page-header"><h2><span class="material-symbols-rounded">router</span> Fase 2</h2><div class="page-brand">BYD CONNECT</div></div>
+            <div class="flex-col" style="gap: 8px;">
+                <div class="card"><div class="card-header"><div class="step-num">01</div><h4 class="card-title">App Celular</h4></div><p class="card-body">Instale <strong>ATV Tools</strong> (Android) para habilitar el puente inalámbrico.</p><a href="https://drive.google.com/file/d/1I_ydfFvzYkEIIshA24xOeauRUSecg1Nn/view?usp=drive_link" target="_blank" class="btn-link btn-lila" style="margin-top: 5px;">DESCARGAR ATV TOOLS</a></div>
+                <a href="https://drive.google.com/file/d/108ruO0RFaVRO0HdOa5TY81PNFBwCtkMh/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de Apoyo 01</h4></div></a>
+                <div class="card"><div class="card-header"><div class="step-num">02</div><h4 class="card-title">Misma Red Wi-Fi</h4></div><p class="card-body">Conecte auto y celular a la misma red mediante la barra superior.</p></div>
+                <a href="https://drive.google.com/file/d/1s-7_i8Z76PUFlNK1jfLldwcXAQ2KbZkZ/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de Apoyo 02-A</h4></div></a>
+                <div class="card"><div class="card-header"><div class="step-num">03</div><h4 class="card-title">Obtener IP</h4></div><p class="card-body">Pulse 'i' en la red conectada para ver la dirección IP.</p></div>
+                <a href="https://drive.google.com/file/d/1flQKyiFhEHDN0rzMBFgqo7Tm9mQKVuN5/view?usp=drive_link" target="_blank" class="support-link"><div class="support-box"><span class="material-symbols-rounded">image</span><h4>Imagen de Apoyo 03</h4></div></a>
+            </div>
+            <div class="slide-footer"><span>Instalación Inalámbrica</span><span>PÁGINA 05</span></div>
+        </div>
     </div>
 
-    <!-- PÁGINA 6: FASE 3 (ESPACIADO MEJORADO) -->
+    <!-- PÁGINA 6: FASE 3 -->
     <div class="slide" id="page-6">
-        <div class="watermark"></div>
-        <div class="page-header"><h2><span class="material-symbols-rounded">key</span> Fase 3: unLocker</h2><div class="page-brand">BYD CONNECT</div></div>
-        <div class="flex-col" style="gap: 20px; flex: 1;">
-            <div class="card">
-                <div class="card-header"><div class="step-num">06</div><h4 class="card-title">Activación del unLocker</h4></div>
-                <p class="card-body">
-                    Luego de haber explicado el proceso inalámbrico, necesitamos <strong>previamente instalar el archivo PackageInstallerunlocked</strong>. Este archivo permitirá instalar aplicaciones directamente desde su USB descargando desde librerías externas.
-                </p>
-            </div>
-
-            <div class="card" style="text-align: center; padding: 25px; background: #f8fafc; border: 1px solid var(--border); flex: 1; display: flex; flex-direction: column; justify-content: space-around;">
-                <div>
-                    <span class="material-symbols-rounded" style="font-size: 55px; color: var(--accent-indigo); margin-bottom: 10px;">shutter_speed</span>
-                    <div style="background: #1e293b; border-radius: 15px; padding: 25px; border: 1px solid #334155; max-width: 450px; margin: 0 auto;">
-                        <div style="color: #38bdf8; font-family: 'Montserrat'; font-weight: 600; margin-bottom: 15px; letter-spacing: 1px;">PACKAGE_INSTALLER_UNLOCKER.APK</div>
-                        <button onclick="handleDownload('installer')" class="btn-link btn-lila" style="max-width: 280px; border:none; cursor:pointer;">
-                            <span class="material-symbols-rounded">cloud_download</span> DESCARGAR UNLOCKER (VIP)
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex-col" style="gap: 15px; margin-top: 10px;">
-                    <div class="card" style="border: 1px solid #fed7aa; background: var(--pastel-orange); text-align: left; padding: 15px;">
-                        <div style="display: flex; gap: 12px; align-items: flex-start;">
-                            <span class="material-symbols-rounded" style="color: var(--accent-orange); font-size: 20px;">visibility_off</span>
-                            <div>
-                                <h4 class="card-title" style="color: var(--accent-orange); font-size: 0.85em; margin-bottom: 4px;">Atención / Nota Importante</h4>
-                                <p class="card-body" style="color: #9a3412; font-size: 0.82em; margin: 0;">El unLocker es un componente técnico. Al finalizar su instalación, <strong>no se verá reflejado con un icono visible</strong>; su función es habilitar permisos internos.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" style="border: 1px solid #fed7aa; background: var(--pastel-orange); text-align: left; padding: 15px;">
-                        <div style="display: flex; gap: 12px; align-items: flex-start;">
-                            <span class="material-symbols-rounded" style="color: var(--accent-orange); font-size: 20px;">usb_flash_drive</span>
-                            <div>
-                                <h4 class="card-title" style="color: var(--accent-orange); font-size: 0.85em; margin-bottom: 4px;">Advertencia de Almacenamiento</h4>
-                                <p class="card-body" style="color: #9a3412; font-size: 0.82em; margin: 0;">Cada vez que intente instalar aplicaciones o archivos mediante USB, el dispositivo deberá estar formateado previamente en sistema <strong>FAT32</strong>.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">FASE 3 • LIBERACIÓN</span>
+            <span class="banner-text" style="opacity: 0.7;">PACKAGE INSTALLER UNLOCKED</span>
         </div>
-        <div class="slide-footer"><span>Liberación Final</span><span>PÁGINA 06</span></div>
+        <div class="slide-content">
+            <div class="page-header"><h2><span class="material-symbols-rounded">key</span> Fase 3</h2><div class="page-brand">BYD CONNECT</div></div>
+            <div class="flex-col" style="gap: 10px;">
+                <div class="card"><div class="card-header"><div class="step-num">06</div><h4 class="card-title">Activación Unlocked</h4></div><p class="card-body">Instale <strong>Package Installer Unlocked</strong> para liberar el USB permanentemente.</p></div>
+                <div class="card" style="text-align: center; padding: 25px; background: #f8fafc; border: 1px solid var(--border); margin-top: 5px;">
+                    <span class="material-symbols-rounded" style="font-size: 60px; color: var(--accent-indigo); margin: 15px 0;">shutter_speed</span>
+                    <div style="background: #1e293b; border-radius: 12px; padding: 25px; border: 1px solid #334155; margin-bottom: 25px;">
+                        <div style="color: #38bdf8; font-family: 'Montserrat'; font-weight: 600; letter-spacing: 2px; margin-bottom: 15px;">PACKAGE_INSTALLER_UNLOCKED.APK</div>
+                        <a href="https://drive.google.com/file/d/1Ihe23lRSlvlVMVCptT9T_tqKKoj1ejZn/view?usp=drive_link" target="_blank" class="btn-link btn-lila" style="max-width: 320px; margin: 0 auto; padding: 12px;">DESCARGAR UNLOCKED</a>
+                    </div>
+                    <div class="card" style="border: 1px solid #fed7aa; background: var(--pastel-orange); text-align: left; padding: 15px;">
+                        <div style="display: flex; gap: 15px; align-items: flex-start;"><span class="material-symbols-rounded" style="color: var(--accent-orange);">visibility_off</span><div><h4 class="card-title" style="color: var(--accent-orange); margin-bottom: 4px;">Atención</h4><p class="card-body" style="color: #9a3412; font-weight: 500; font-size: 0.9em; margin: 0;">Este archivo no crea un icono; habilita permisos internos invisibles.</p></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Desbloqueo Final</span><span>PÁGINA 06</span></div>
+        </div>
     </div>
 
-    <!-- PÁGINA 7: RECURSOS -->
+    <!-- PÁGINA 7: USB & RECURSOS -->
     <div class="slide" id="page-7">
-        <div class="watermark"></div>
-        <div class="page-header"><h2><span class="material-symbols-rounded">usb</span> Instalación y Recursos</h2><div class="page-brand">BYD CONNECT</div></div>
-        <div class="flex-col" style="gap: 12px; flex: 1;">
-            
-            <div class="card" style="border-left: 5px solid var(--accent-orange); background: #fffaf5; padding: 15px;">
-                <div class="card-header">
-                    <span class="material-symbols-rounded" style="color: var(--accent-orange);">format_paint</span>
-                    <h4 class="card-title" style="color: var(--accent-orange);">Preparación del USB (Flashear)</h4>
-                </div>
-                <div class="flex-col" style="gap: 8px; margin-top: 5px;">
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="step-num" style="background: var(--accent-orange); width: 22px; height: 22px; font-size: 0.65em;">1</div>
-                        <p class="card-body" style="margin: 0; font-size: 0.85em;">Conecte el pendrive a su PC y haga clic derecho en la unidad.</p>
-                    </div>
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="step-num" style="background: var(--accent-orange); width: 22px; height: 22px; font-size: 0.65em;">2</div>
-                        <p class="card-body" style="margin: 0; font-size: 0.85em;">Seleccione <strong>"Formatear"</strong> (se borrarán todos los datos del pendrive).</p>
-                    </div>
-                    <div style="display: flex; gap: 12px; align-items: center;">
-                        <div class="step-num" style="background: var(--accent-orange); width: 22px; height: 22px; font-size: 0.65em;">3</div>
-                        <p class="card-body" style="margin: 0; font-size: 0.85em;">Elija sistema de archivos <strong>FAT32</strong> e Inicie.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" style="background: #f1f5f9; padding: 15px 20px; border: 1px solid var(--border);">
-                <div class="card-header">
-                    <span class="material-symbols-rounded">download_for_offline</span>
-                    <h4 class="card-title">Paquetes de Aplicación Recomendada</h4>
-                </div>
-                <p class="card-body" style="margin-bottom: 12px; font-size: 0.82em; opacity: 0.8;">
-                    Descargue los archivos organizados por categorías para cargarlos en su USB o instalarlos directamente.
-                </p>
-                <div class="grid-2" style="gap: 10px;">
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Entretenimiento</h4>
-                        <span class="material-symbols-rounded" style="color:var(--accent-indigo); font-size:28px; display: block; margin-bottom: 5px;">smart_display</span>
-                        <button onclick="handleDownload('entertainment')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Navegación</h4>
-                        <span class="material-symbols-rounded" style="color:var(--accent-blue); font-size:28px; display: block; margin-bottom: 5px;">map</span>
-                        <button onclick="handleDownload('navigation')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Redes Sociales</h4>
-                        <span class="material-symbols-rounded" style="color:#0ea5e9; font-size:28px; display: block; margin-bottom: 5px;">share</span>
-                        <button onclick="handleDownload('social')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Música</h4>
-                        <span class="material-symbols-rounded" style="color:#ec4899; font-size:28px; display: block; margin-bottom: 5px;">library_music</span>
-                        <button onclick="handleDownload('music')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Movilidad Eléctrica</h4>
-                        <span class="material-symbols-rounded" style="color:var(--accent-emerald); font-size:28px; display: block; margin-bottom: 5px;">ev_station</span>
-                        <button onclick="handleDownload('ev')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                    <div class="card" style="padding: 10px; border: 1px solid #cbd5e1; text-align: center;">
-                        <h4 class="card-title" style="font-size: 0.6em; margin-bottom: 5px;">Otras Apps</h4>
-                        <span class="material-symbols-rounded" style="color:var(--text-muted); font-size:28px; display: block; margin-bottom: 5px;">apps</span>
-                        <button onclick="handleDownload('others')" class="btn-link btn-lila" style="font-size: 0.55em; border:none; cursor:pointer;">DESCARGAR (VIP)</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" style="background: var(--primary); color: white; padding: 15px 20px;">
-                <div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-indigo);">help_center</span><h4 class="card-title" style="color:white;">Soporte Comunidad Uruguay</h4></div>
-                <div class="grid-2" style="margin-top: 10px; gap: 8px;">
-                    <a href="https://www.tiktok.com/@byd.connect0" target="_blank" class="btn-link" style="background: rgba(255,255,255,0.1); color: white; border: none; font-size: 0.55em; padding: 8px;">TikTok Canal</a>
-                    <a href="mailto:connectbyd0@gmail.com" class="btn-link" style="background: var(--gmail); color: white; border: none; font-size: 0.55em; padding: 8px;">Email Support</a>
-                    <a href="https://wa.me/59892617525" target="_blank" class="btn-link" style="background: var(--whatsapp); color: white; border: none; font-size: 0.55em; padding: 8px;">WhatsApp</a>
-                    <a href="https://t.me/bydconnect" target="_blank" class="btn-link btn-lila" style="font-size: 0.55em; padding: 8px;">Telegram Support</a>
-                </div>
-            </div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">MÉTODO FÍSICO • RECURSOS</span>
+            <span class="banner-text" style="opacity: 0.7;">PACKS DE APLICACIONES</span>
         </div>
-        <div class="slide-footer"><span>Recursos Finales</span><span>PÁGINA 07</span></div>
+        <div class="slide-content">
+            <div class="page-header"><h2><span class="material-symbols-rounded">usb</span> USB & Packs</h2><div class="page-brand">BYD CONNECT</div></div>
+            <div class="flex-col" style="gap: 15px;">
+                <div class="card" style="border-left: 5px solid var(--accent-orange); background: #fffaf5; padding: 15px 20px;">
+                    <div class="card-header"><span class="material-symbols-rounded" style="color: var(--accent-orange);">format_paint</span><h4 class="card-title">Preparación del USB</h4></div>
+                    <div style="display: flex; gap: 15px; align-items: center; margin-top: 5px;"><div class="step-num" style="background: var(--accent-orange);">!</div><p class="card-body" style="margin: 0;">Formatear pendrive estrictamente en <strong>FAT32</strong>.</p></div>
+                </div>
+                <div class="card" style="background: #f1f5f9; padding: 15px 20px;">
+                    <h4 class="card-title" style="margin-bottom: 10px;">Canales de Contacto Directo</h4>
+                    <div class="grid-2" style="gap: 10px;">
+                        <a href="https://wa.me/59892617525" target="_blank" class="btn-link" style="background: var(--whatsapp); color: white; border: none; font-size: 0.5em; padding: 6px;">WHATSAPP</a>
+                        <a href="mailto:connectbyd0@gmail.com" class="btn-link" style="background: var(--gmail); color: white; border: none; font-size: 0.5em; padding: 6px;">EMAIL</a>
+                        <a href="https://t.me/bydconnect" target="_blank" class="btn-link btn-lila" style="font-size: 0.5em; padding: 6px;">TELEGRAM</a>
+                        <a href="https://www.tiktok.com/@byd.connect0" target="_blank" class="btn-link" style="background: black; color: white; border: none; font-size: 0.5em; padding: 6px;">TIKTOK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Instalación USB</span><span>PÁGINA 07</span></div>
+        </div>
     </div>
 
-    <!-- PÁGINA 8: GLOSARIO -->
+    <!-- PÁGINA 8: GLOSARIO ACTUALIZADO -->
     <div class="slide" id="page-8">
-        <div class="watermark"></div>
-        <div class="page-header"><h2><span class="material-symbols-rounded">menu_book</span> Glosario Técnico</h2><div class="page-brand">BYD CONNECT</div></div>
-        <div class="flex-col" style="gap: 15px; flex: 1;">
-            <div class="card" style="background: #f8fafc; flex: 1;">
-                <div class="glossary-term"><strong>ADB (Android Debug Bridge)</strong>Protocolo de comunicación técnica para enviar comandos desde un smartphone externo al sistema del vehículo inalámbricamente.</div>
-                <div class="glossary-term"><strong>APK</strong>Formato de archivo ejecutable utilizado para distribuir e instalar aplicaciones en sistemas Android.</div>
-                <div class="glossary-term"><strong>FAT32</strong>Sistema de archivos obligatorio para que el sistema multimedia BYD reconozca y lea memorias USB correctamente.</div>
-                <div class="glossary-term"><strong>IP (Internet Protocol)</strong>Dirección numérica única del vehículo dentro de la red Wi-Fi para su vinculación técnica.</div>
-                <div class="glossary-term"><strong>IMEI / ID</strong>Identificador único de hardware necesario para generar la clave técnica de apertura en la Fase 1.</div>
-                <div class="glossary-term"><strong>unLocker</strong>Archivo que elimina permanentemente las restricciones nativas de BYD para puertos USB.</div>
-            </div>
-            <div style="text-align: center; border: 2px solid var(--accent-indigo); border-radius: 12px; padding: 15px;">
-                <p style="font-family: 'Montserrat'; font-weight: 500; color: var(--primary); margin: 0;">© 2026 BYD CONNECT URUGUAY EDITION</p>
-                <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 5px;">Optimizado para Dolphin, Yuan Plus, Seal y Seagull.</p>
-            </div>
+        <div class="watermark">BYD CONNECT</div>
+        <div class="top-banner">
+            <span class="banner-text">GLOSARIO TÉCNICO</span>
+            <span class="banner-text" style="opacity: 0.7;">BYD CONNECT URUGUAY</span>
         </div>
-        <div class="slide-footer"><span>Fin de la Guía</span><span>PÁGINA 08</span></div>
+        <div class="slide-content">
+            <div class="page-header"><h2><span class="material-symbols-rounded">menu_book</span> Glosario</h2><div class="page-brand">BYD CONNECT</div></div>
+            <div class="flex-col" style="gap: 10px; flex: 1;">
+                <div class="card" style="background: rgba(255,255,255,0.7); flex: 1;">
+                    <div class="glossary-term">
+                        <strong>ADB (Android Debug Bridge)</strong>
+                        <p>Protocolo de comunicación que permite a dispositivos externos enviar comandos de nivel de sistema al vehículo para instalaciones avanzadas.</p>
+                    </div>
+                    <div class="glossary-term">
+                        <strong>APK / Archivo de Instalación</strong>
+                        <p>Paquete de software que contiene todos los datos de una aplicación Android, listo para ser ejecutado e instalado manualmente.</p>
+                    </div>
+                    <div class="glossary-term">
+                        <strong>FAT32 (File Allocation Table 32)</strong>
+                        <p>Formato de sistema de archivos requerido para que el multimedia de BYD pueda leer correctamente las unidades USB externas.</p>
+                    </div>
+                    <div class="glossary-term">
+                        <strong>Package Installer Unlocked</strong>
+                        <p>Componente crítico que, al instalarse, elimina las restricciones de seguridad del puerto USB, permitiendo la "Libertad Total" de instalación.</p>
+                    </div>
+                    <div class="glossary-term">
+                        <strong>IP (Dirección de Protocolo de Internet)</strong>
+                        <p>Identificador numérico único del vehículo en la red Wi-Fi; actúa como la "dirección postal" para enviar aplicaciones desde el celular.</p>
+                    </div>
+                    <div class="glossary-term">
+                        <strong>Sideloading</strong>
+                        <p>Técnica de instalar aplicaciones de fuentes de terceros fuera de la tienda oficial del fabricante.</p>
+                    </div>
+                </div>
+                <div style="margin-top: auto; text-align: center; border: 2px solid var(--accent-indigo); border-radius: 12px; padding: 20px; background: white;">
+                    <p style="font-family: 'Montserrat'; font-weight: 600; color: var(--primary); margin: 0; letter-spacing: 2px;">© 2026 BYD CONNECT URUGUAY</p>
+                    <p style="font-size: 0.8em; color: var(--text-muted); margin-top: 5px;">Comunidad oficial de soporte y desarrollo multimedia.</p>
+                </div>
+            </div>
+            <div class="slide-footer"><span>Definiciones</span><span>PÁGINA 08</span></div>
+        </div>
     </div>
 
     <script>
-        const ADMIN_PASS = "BYD-ADMIN-MASTER-2026"; 
-        let vClicks = 0, vipIconClicks = 0, banClicks = 0;
-
-        function getFingerprint() {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            const txt = 'BYD-CONNECT-DRM-2026-URUGUAY';
-            ctx.textBaseline = "top"; ctx.font = "14px 'Arial'";
-            ctx.fillText(txt, 2, 2);
-            const b64 = canvas.toDataURL().replace("data:image/png;base64,","").slice(0,25);
-            let hash = 0;
-            for (let i = 0; i < b64.length; i++) hash = ((hash << 5) - hash) + b64.charCodeAt(i);
-            const cleanID = Math.abs(hash).toString(16).toUpperCase();
-            return `BYD-${cleanID.slice(0,4)}-${cleanID.slice(4,8)}`;
-        }
-
-        const DEVICE_ID = getFingerprint();
-        const SECRET_SALT = "BYD_SALT_2026";
-
-        function isValidKey(id, key) {
-            if (key.trim().toUpperCase() === ADMIN_PASS) return true;
-            let hash = 0; const str = id + SECRET_SALT;
-            for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i);
-            return key.trim().toUpperCase() === ("VIP-" + Math.abs(hash).toString(36).toUpperCase());
-        }
-
-        function displayIDs() {
-            const idPreview = document.getElementById('id-preview-modal');
-            const idBan = document.getElementById('ban-id-display');
-            if(idPreview) idPreview.innerText = DEVICE_ID;
-            if(idBan) idBan.innerText = DEVICE_ID;
-
-            const msg = encodeURIComponent(`Hola! Quiero activar mi Guía VIP BYD Connect.\nMi ID es: ${DEVICE_ID}`);
-            const telBtn = document.getElementById('telegram-activation');
-            if(telBtn) telBtn.href = `https://t.me/bydconnect?text=${msg}`;
-        }
-
-        function showVipModal() {
-            displayIDs();
-            document.getElementById('vip-modal').style.display = 'flex';
-        }
-
-        function checkAccess() {
-            displayIDs();
-            const isAdmin = localStorage.getItem('byd_admin');
-            const savedKey = localStorage.getItem('byd_key');
-            const savedID = localStorage.getItem('byd_id');
-
-            if (isAdmin === 'true') {
-                document.getElementById('admin-badge').style.display = 'block';
-                updateUI(true); return;
-            }
-            if (savedKey && savedID) {
-                if (savedID !== DEVICE_ID) { document.getElementById('ban-screen').style.display = 'flex'; return; }
-                if (isValidKey(DEVICE_ID, savedKey)) { updateUI(true); }
-            }
-        }
-
-        function toggleManualEntry() {
-            const box = document.getElementById('manual-entry-box');
-            box.style.display = box.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function processManualKey() {
-            const val = document.getElementById('manual-key-input').value;
-            if (!val) return;
-            if (val.trim().toUpperCase() === ADMIN_PASS) {
-                localStorage.setItem('byd_admin', 'true'); localStorage.setItem('byd_id', DEVICE_ID);
-                location.reload(); return;
-            }
-            if (isValidKey(DEVICE_ID, val)) {
-                localStorage.setItem('byd_key', val.toUpperCase()); localStorage.setItem('byd_id', DEVICE_ID);
-                location.reload();
-            } else { alert("Clave inválida."); }
-        }
-
-        function processBanRescue() {
-            const val = document.getElementById('ban-rescue-input').value;
-            if (val && val.toUpperCase() === ADMIN_PASS) {
-                localStorage.setItem('byd_admin', 'true'); localStorage.setItem('byd_id', DEVICE_ID);
-                location.reload();
-            } else { alert("Clave Maestra Incorrecta."); }
-        }
-
-        function handleDownload(type) {
-            const isAdmin = localStorage.getItem('byd_admin') === 'true';
-            const hasKey = localStorage.getItem('byd_key') && localStorage.getItem('byd_id') === DEVICE_ID;
-            if (isAdmin || hasKey) {
-                const links = {
-                    installer: "https://drive.google.com/file/d/1Ihe23lRSlvlVMVCptT9T_tqKKoj1ejZn/view?usp=drive_link",
-                    entertainment: "https://drive.google.com/drive/folders/1hbA9DpRbHQGee4am216mf5ZK9BvdRaIY",
-                    navigation: "https://drive.google.com/drive/folders/1NVbZeZO7EPCja8S4yuiWNvXKGH2AA6AW",
-                    social: "https://drive.google.com/drive/folders/1gA8NTOXeytKLcuCptvr15GxgTJyRLYsw",
-                    music: "https://drive.google.com/drive/folders/1JpCXz495D3PpBhvhLhrYonW5BTuqaPaA",
-                    ev: "https://drive.google.com/drive/folders/1JpCXz495D3PpBhvhLhrYonW5BTuqaPaA",
-                    others: "https://drive.google.com/drive/folders/1KsR6kyr8f7D5u4P0RX401zG3Fyz-HWyz"
-                };
-                window.open(links[type], '_blank');
-            } else { showVipModal(); }
-        }
-
-        document.getElementById('version-trigger').onclick = () => { versionClicks++; if(versionClicks >= 5) { versionClicks=0; toggleManualEntry(); showVipModal(); }};
-        document.getElementById('vip-icon-trigger').onclick = () => { vipIconClicks++; if(vipIconClicks >= 3) toggleManualEntry(); };
-        document.getElementById('ban-icon-trigger').onclick = () => { banClicks++; if(banClicks >= 3) { banClicks=0; document.getElementById('ban-rescue-box').style.display = 'block'; }};
-
-        function updateUI(active) {
-            if (!active) return;
-            document.querySelectorAll('button').forEach(btn => {
-                if (btn.innerText.includes('(VIP)')) btn.innerHTML = btn.innerHTML.replace('(VIP)', '<span style="color:#10b981">(ACTIVO)</span>');
-            });
-        }
-
-        checkAccess();
-
         async function downloadAll() {
+            const btn = document.querySelector('.btn-action');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-rounded">hourglass_empty</span> PROCESANDO...';
+            btn.disabled = true;
             const slides = document.querySelectorAll('.slide');
-            for (let i = 0; i < slides.length; i++) {
-                const canvas = await html2canvas(slides[i], { scale: 2 });
-                const link = document.createElement('a'); link.download = `Guia_Pagina_${i+1}.png`;
-                link.href = canvas.toDataURL(); link.click();
-                await new Promise(r => setTimeout(r, 600));
-            }
+            try {
+                for (let i = 0; i < slides.length; i++) {
+                    const canvas = await html2canvas(slides[i], { 
+                        scale: 2, 
+                        useCORS: true, 
+                        backgroundColor: "#f8fafc", 
+                        logging: false 
+                    });
+                    const link = document.createElement('a');
+                    link.download = `BYD_Connect_Pagina_${i+1}.png`;
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                    await new Promise(r => setTimeout(r, 600));
+                }
+            } catch (error) { console.error("Error exportando imágenes:", error); } 
+            finally { btn.innerHTML = originalText; btn.disabled = false; }
         }
-
-        window.onclick = e => { if (e.target == document.getElementById('vip-modal')) document.getElementById('vip-modal').style.display = 'none'; };
     </script>
 </body>
 </html>
